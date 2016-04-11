@@ -1,8 +1,8 @@
 {
-  "name": "discordtestbot",
+  "name": "statbot",
   "version": "1.0.0",
   "description": "",
-  "main": "test.js",
+  "main": "statbot.js",
   "dependencies": {
     "discord.js": "^6.1.0"
   },
