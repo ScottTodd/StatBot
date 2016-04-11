@@ -4,6 +4,10 @@ Statbot
 Proof of concept chat bot for [Discord](https://discordapp.com/) that
 displays user stats for [Blade and Soul](http://www.bladeandsoul.com/) characters.
 
+Sample usage:
+
+![Screenshot](screenshot.png "Screenshot")
+
 Running:
 --------
 
