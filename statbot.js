@@ -1,4 +1,4 @@
-"use strict;"
+"use strict";
 
 // Run under node.js like ``node statbot.js``. See the README for more info.
 
@@ -48,7 +48,7 @@ function parseScrapedObject(obj, statString) {
   var regexp = new RegExp(statString + "([0-9]*)");
   var result = regexp.exec(obj);
   if (!result) {
-    console.error('Regex failed to find statstring.')
+    console.error('Regex failed to find statstring.');
     return null;
   }
   var match = result[1];
@@ -71,35 +71,38 @@ function buildResponseToStatRequest(user) {
   var url = 'http://na-bns.ncsoft.com/ingame/bs/character/profile?c=' + user;
 
   return new Promise(function(resolve, reject) {
-    scrapePage(url).then((obj) => {
-      var cleanedObj = obj.replace(/\s/g, '');
+    scrapePage(url)
+        .then((obj) =>
+              {
+                var cleanedObj = obj.replace(/\s/g, '');
 
-      var response = 'Stats for user \"' + user + '\":';
+                var response = 'Stats for user \"' + user + '\":';
 
-      var stats = [
-        'Attack Power',
-        'Evolved Attack Rate',
-        'Piercing',
-        'Accuracy',
-        'Concentration',
-        'Critical Hit',
-        'Critical Damage',
-        'Mastery Level',
-        'Additional Damage',
-        'Threat',
-        'Flame Damage',
-        'Frost Damage',
-      ];
+                var stats = [
+                  'Attack Power',
+                  'Evolved Attack Rate',
+                  'Piercing',
+                  'Accuracy',
+                  'Concentration',
+                  'Critical Hit',
+                  'Critical Damage',
+                  'Mastery Level',
+                  'Additional Damage',
+                  'Threat',
+                  'Flame Damage',
+                  'Frost Damage',
+                ];
 
-      for (var i = 0; i < stats.length; ++i) {
-        response += buildStatMessage(cleanedObj, stats[i]);
-      }
+                for (var i = 0; i < stats.length; ++i) {
+                  response += buildStatMessage(cleanedObj, stats[i]);
+                }
 
-      resolve(response);
-    }).catch((error) => {
-      console.error('Error scraping page:', error);
-      reject('Failed to scrape the page.');
-    });
+                resolve(response);
+              })
+        .catch((error) => {
+          console.error('Error scraping page:', error);
+          reject('Failed to scrape the page.');
+        });
   });
 }
 
@@ -116,7 +119,6 @@ botClient.on('message', function(message) {
     }).catch((error) => { console.error('Error building response:', error); });
   }
 });
-
 
 botClient.login(email, password)
     .then(() => { console.log('Login succeeded, running.'); })
