@@ -4,11 +4,12 @@
   "description": "",
   "main": "statbot.js",
   "dependencies": {
-    "discord.js": "^6.1.0"
+    "discord.js": "^6.1.0",
+    "x-ray": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no tests written :)\" && exit 1"
   },
   "author": "Scott Todd",
   "license": "MIT"
