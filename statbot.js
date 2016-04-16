@@ -23,15 +23,15 @@ var botClient = new Discord.Client();
 var x = Xray();
 
 function parseStatsCommand(messageContent) {
-  // Find an alphanumeric name after ``--stats``.
-  // This is probably terrible (injection) and needs more validation
-  // since we'll be passing it to a URL. Also error checking would be nice here.
-  var matches = messageContent.match(/\-\-stats\s(\w*)/);
+  // Find an alphanumeric (plus spaces) name after ``--stats``.
+  var matches = messageContent.match(/\-\-stats\s([\w\s]*)/);
   var user = matches[1];
   return user;
 }
 
 function scrapePage(url) {
+  console.log('Scraping page at url: "' + url + '"');
+
   return new Promise(function(resolve, reject) {
     x(url, '.characterInfo')(function(error, obj) {
       if (error) {
@@ -67,8 +67,11 @@ function buildStatMessage(obj, statString) {
 function buildResponseToStatRequest(user) {
   console.log('Got username from stats command:', user);
 
+  var userEncoded = encodeURIComponent(user);
+
   // Might need to do something fancier here if they block automated traffic.
-  var url = 'http://na-bns.ncsoft.com/ingame/bs/character/profile?c=' + user;
+  var url =
+      'http://na-bns.ncsoft.com/ingame/bs/character/profile?c=' + userEncoded;
 
   return new Promise(function(resolve, reject) {
     scrapePage(url)
